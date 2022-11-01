@@ -27,6 +27,7 @@ export default function CheckboxList() {
     const newToDoList = toDolist;
     newToDoList.push(inputValue);
     setTodolist([...newToDoList]);
+    setInputValue("");
   }
 
   //   const handleToggle = (value: number) => () => {
@@ -49,6 +50,7 @@ export default function CheckboxList() {
         onChange={(event) => setInputValue(event.target.value)}
       />
       <button onClick={addItemToList}> submit</button>
+
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {toDolist.map((value, index) => {
           const labelId = `checkbox-list-label-${value}`;
