@@ -12,22 +12,19 @@ import CommentIcon from "@mui/icons-material/Comment";
 export default function CheckboxList() {
   const [checked, setChecked] = useState([0]);
 
-  const [toDolist, setTodolist] = useState<string[]>([
-    "string",
-    "string",
-    "string",
-  ]);
+  const [toDolist, setTodolist] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-
-  //   const toDoListRender = toDolist.map((item, index) => {
-  //     return <li key={index}>{item}</li>;
-  //   });
 
   function addItemToList(event: any) {
     const newToDoList = toDolist;
     newToDoList.push(inputValue);
     setTodolist([...newToDoList]);
     setInputValue("");
+  }
+
+  function handleRemoveFirstItem(event: any) {
+    const cloneToDoList = [...toDolist];
+    setTodolist(cloneToDoList.slice(0, -1));
   }
 
   //   const handleToggle = (value: number) => () => {
@@ -50,6 +47,7 @@ export default function CheckboxList() {
         onChange={(event) => setInputValue(event.target.value)}
       />
       <button onClick={addItemToList}> submit</button>
+      <button onClick={handleRemoveFirstItem}> Delete first element </button>
 
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {toDolist.map((value, index) => {
