@@ -20,14 +20,16 @@ function removeItem(arr: string[], num: number) {
 
 export default function CheckboxList() {
   const [checked, setChecked] = useState([0]);
+  //   <[{ text: string; checked: boolean }]>([
+  //     { text: "", checked: false },
+  //   ]);
 
   const [toDolist, setTodolist] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
   function addItemToList(event: any) {
-    const newToDoList = toDolist;
-    newToDoList.push(inputValue);
-    setTodolist([...newToDoList]);
+    const newToDoList = [...toDolist, inputValue];
+    setTodolist(newToDoList);
     setInputValue("");
   }
 
