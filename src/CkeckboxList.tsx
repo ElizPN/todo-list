@@ -9,11 +9,20 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 
+function removeItem(arr: string[], num: number) {
+  const arrClone = [...arr];
+  const partBeforeItem = arrClone.slice(0, num);
+  const partAfterItem = arrClone.slice(num + 1);
+  const arrConcat = [...partBeforeItem, ...partAfterItem];
+
+  return arrConcat;
+}
+
 export default function CheckboxList() {
   const [checked, setChecked] = useState([0]);
 
   const [toDolist, setTodolist] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
 
   function addItemToList(event: any) {
     const newToDoList = toDolist;
@@ -22,9 +31,9 @@ export default function CheckboxList() {
     setInputValue("");
   }
 
-  function handleRemoveFirstItem(event: any) {
-    const cloneToDoList = [...toDolist];
-    setTodolist(cloneToDoList.slice(0, -1));
+  function handleRemoveItem(itemIndex: any) {
+    const arrWithoutItem = removeItem(toDolist, itemIndex);
+    setTodolist(arrWithoutItem);
   }
 
   //   const handleToggle = (value: number) => () => {
@@ -47,7 +56,6 @@ export default function CheckboxList() {
         onChange={(event) => setInputValue(event.target.value)}
       />
       <button onClick={addItemToList}> submit</button>
-      <button onClick={handleRemoveFirstItem}> Delete first element </button>
 
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {toDolist.map((value, index) => {
@@ -70,6 +78,9 @@ export default function CheckboxList() {
                 />
               </ListItemIcon> */}
                 <ListItemText id={labelId} primary={value} />
+                <IconButton onClick={(event: any) => handleRemoveItem(index)}>
+                  remove
+                </IconButton>
               </ListItemButton>
             </ListItem>
           );
