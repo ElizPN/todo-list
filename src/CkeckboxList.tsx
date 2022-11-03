@@ -8,8 +8,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
+import { stringify } from "querystring";
 
-function removeItem(arr: string[], num: number) {
+function removeItem(arr: Item[], num: number) {
   const arrClone = [...arr];
   const partBeforeItem = arrClone.slice(0, num);
   const partAfterItem = arrClone.slice(num + 1);
@@ -18,19 +19,25 @@ function removeItem(arr: string[], num: number) {
   return arrConcat;
 }
 
+interface Item {
+  text: string;
+  checked: boolean;
+}
+
 export default function CheckboxList() {
   const [checked, setChecked] = useState([0]);
-  //   <[{ text: string; checked: boolean }]>([
-  //     { text: "", checked: false },
-  //   ]);
 
-  const [toDolist, setTodolist] = useState<string[]>([]);
+  const [toDolist, setTodolist] = useState<Item[]>([
+    { text: "", checked: false },
+  ]);
   const [inputValue, setInputValue] = useState<string>("");
 
   function addItemToList(event: any) {
-    const newToDoList = [...toDolist, inputValue];
+    let newToDoList = [...toDolist];
+    newToDoList.push({ text: inputValue, checked: false });
     setTodolist(newToDoList);
     setInputValue("");
+    console.log(toDolist);
   }
 
   function handleRemoveItem(itemIndex: any) {
@@ -79,7 +86,7 @@ export default function CheckboxList() {
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon> */}
-                <ListItemText id={labelId} primary={value} />
+                <ListItemText id={labelId} primary={value.text} />
                 <IconButton onClick={(event: any) => handleRemoveItem(index)}>
                   remove
                 </IconButton>
