@@ -10,6 +10,11 @@ import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import { stringify } from "querystring";
 
+interface Item {
+  text: string;
+  checked: boolean;
+}
+
 function removeItem(arr: Item[], num: number) {
   const arrClone = [...arr];
   const partBeforeItem = arrClone.slice(0, num);
@@ -19,17 +24,19 @@ function removeItem(arr: Item[], num: number) {
   return arrConcat;
 }
 
-interface Item {
-  text: string;
-  checked: boolean;
+function toggleProperty(arr: Item[], itemIndex: number) {
+  const copyArr = [...arr];
+  copyArr[itemIndex].checked = !copyArr[itemIndex].checked;
+
+  return copyArr;
 }
 
 export default function CheckboxList() {
   const [checked, setChecked] = useState([0]);
 
-  const [toDolist, setTodolist] = useState<Item[]>([
-    { text: "", checked: false },
-  ]);
+  const [toDolist, setTodolist] = useState<Item[]>([]);
+  console.log(toDolist);
+
   const [inputValue, setInputValue] = useState<string>("");
 
   function addItemToList(event: any) {
@@ -37,12 +44,16 @@ export default function CheckboxList() {
     newToDoList.push({ text: inputValue, checked: false });
     setTodolist(newToDoList);
     setInputValue("");
-    console.log(toDolist);
   }
 
   function handleRemoveItem(itemIndex: any) {
     const arrWithoutItem = removeItem(toDolist, itemIndex);
     setTodolist(arrWithoutItem);
+  }
+
+  function handleToggle(itemIndex: any) {
+    const arrWithToggleChecked = toggleProperty(toDolist, itemIndex);
+    setTodolist(arrWithToggleChecked);
   }
 
   //   const handleToggle = (value: number) => () => {
@@ -86,6 +97,9 @@ export default function CheckboxList() {
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon> */}
+                <ListItemIcon onClick={(event: any) => handleToggle(index)}>
+                  checked
+                </ListItemIcon>
                 <ListItemText id={labelId} primary={value.text} />
                 <IconButton onClick={(event: any) => handleRemoveItem(index)}>
                   remove
