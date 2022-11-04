@@ -32,11 +32,7 @@ function toggleProperty(arr: Item[], itemIndex: number) {
 }
 
 export default function CheckboxList() {
-  const [checked, setChecked] = useState([0]);
-
   const [toDolist, setTodolist] = useState<Item[]>([]);
-  console.log(toDolist);
-
   const [inputValue, setInputValue] = useState<string>("");
 
   function addItemToList(event: any) {
@@ -56,19 +52,6 @@ export default function CheckboxList() {
     setTodolist(arrWithToggleChecked);
   }
 
-  //   const handleToggle = (value: number) => () => {
-  //     const currentIndex = checked.indexOf(value);
-  //     const newChecked = [...checked];
-
-  //     if (currentIndex === -1) {
-  //       newChecked.push(value);
-  //     } else {
-  //       newChecked.splice(currentIndex, 1);
-  //     }
-
-  //     setChecked(newChecked);
-  //   };
-
   return (
     <div>
       <input
@@ -79,28 +62,19 @@ export default function CheckboxList() {
 
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {toDolist.map((value, index) => {
-          const labelId = `checkbox-list-label-${value}`;
-
           return (
             <ListItem key={index} disablePadding>
-              <ListItemButton
-                role={undefined}
-                //   onClick={handleToggle(value)}
-                dense
-              >
-                {/* <ListItemIcon>
-                <Checkbox
-                  edge='start'
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{ "aria-labelledby": labelId }}
-                />
-              </ListItemIcon> */}
-                <ListItemIcon onClick={(event: any) => handleToggle(index)}>
-                  checked
+              <ListItemButton role={undefined} dense>
+                <ListItemIcon>
+                  <Checkbox
+                    edge='start'
+                    checked={value.checked}
+                    tabIndex={-1}
+                    disableRipple
+                    onClick={(event: any) => handleToggle(index)}
+                  />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={value.text} />
+                <ListItemText primary={value.text} />
                 <IconButton onClick={(event: any) => handleRemoveItem(index)}>
                   remove
                 </IconButton>
