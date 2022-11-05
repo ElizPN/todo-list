@@ -11,6 +11,8 @@ import Container from "@mui/material/Container";
 import { stringify } from "querystring";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Fade from "@mui/material/Fade";
+import Zoom from "@mui/material/Zoom/Zoom";
 
 interface Item {
   text: string;
@@ -36,6 +38,7 @@ function toggleProperty(arr: Item[], itemIndex: number) {
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const [deletedItem, setDeletedItem] = useState<any>();
 
   function addItemToList(event: any) {
     let newToDoList = [...toDolist];
@@ -72,24 +75,28 @@ export default function CheckboxList() {
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {toDolist.map((value, index) => {
+          {toDolist.map((item, index) => {
             return (
-              <ListItem key={index} disablePadding>
-                <ListItemButton role={undefined} dense>
-                  <ListItemIcon>
-                    <Checkbox
-                      edge='start'
-                      checked={value.checked}
-                      tabIndex={-1}
-                      disableRipple
-                      onClick={(event: any) => handleToggle(index)}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={value.text} />
-                  <IconButton onClick={(event: any) => handleRemoveItem(index)}>
-                    remove
-                  </IconButton>
-                </ListItemButton>
+              <ListItem disablePadding>
+                <Fade in timeout={800}>
+                  <ListItemButton role={undefined} dense>
+                    <ListItemIcon>
+                      <Checkbox
+                        edge='start'
+                        checked={item.checked}
+                        tabIndex={-1}
+                        disableRipple
+                        onClick={(event: any) => handleToggle(index)}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} />
+                    <IconButton
+                      onClick={(event: any) => handleRemoveItem(index)}
+                    >
+                      remove
+                    </IconButton>
+                  </ListItemButton>
+                </Fade>
               </ListItem>
             );
           })}
