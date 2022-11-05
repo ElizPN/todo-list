@@ -7,8 +7,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import CommentIcon from "@mui/icons-material/Comment";
+import Container from "@mui/material/Container";
 import { stringify } from "querystring";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 interface Item {
   text: string;
@@ -53,36 +55,46 @@ export default function CheckboxList() {
   }
 
   return (
-    <div>
-      <input
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-      />
-      <button onClick={addItemToList}> submit</button>
+    <Grid
+      container
+      direction='column'
+      alignItems='center'
+      justifyContent='center'
+      style={{ minHeight: "100vh" }}
+    >
+      <Box>
+        <input
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+        />
+        <button onClick={addItemToList}> submit</button>
 
-      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {toDolist.map((value, index) => {
-          return (
-            <ListItem key={index} disablePadding>
-              <ListItemButton role={undefined} dense>
-                <ListItemIcon>
-                  <Checkbox
-                    edge='start'
-                    checked={value.checked}
-                    tabIndex={-1}
-                    disableRipple
-                    onClick={(event: any) => handleToggle(index)}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={value.text} />
-                <IconButton onClick={(event: any) => handleRemoveItem(index)}>
-                  remove
-                </IconButton>
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-      </List>
-    </div>
+        <List
+          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        >
+          {toDolist.map((value, index) => {
+            return (
+              <ListItem key={index} disablePadding>
+                <ListItemButton role={undefined} dense>
+                  <ListItemIcon>
+                    <Checkbox
+                      edge='start'
+                      checked={value.checked}
+                      tabIndex={-1}
+                      disableRipple
+                      onClick={(event: any) => handleToggle(index)}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary={value.text} />
+                  <IconButton onClick={(event: any) => handleRemoveItem(index)}>
+                    remove
+                  </IconButton>
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
+    </Grid>
   );
 }
