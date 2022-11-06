@@ -14,6 +14,7 @@ import Zoom from "@mui/material/Zoom/Zoom";
 interface Item {
   text: string;
   checked: boolean;
+  removing: boolean;
 }
 
 function removeItem(arr: Item[], num: number) {
@@ -32,6 +33,13 @@ function toggleProperty(arr: Item[], itemIndex: number) {
   return copyArr;
 }
 
+function toggleRemoveProperty(arr: Item[], itemIndex: number) {
+  const copyArr = [...arr];
+  copyArr[itemIndex].removing = !copyArr[itemIndex].removing;
+
+  return copyArr;
+}
+
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -39,12 +47,17 @@ export default function CheckboxList() {
 
   function addItemToList(event: any) {
     let newToDoList = [...toDolist];
-    newToDoList.push({ text: inputValue, checked: false });
+    newToDoList.push({ text: inputValue, checked: false, removing: false });
     setTodolist(newToDoList);
     setInputValue("");
   }
 
   function handleRemoveItem(itemIndex: any) {
+    const arrWithToggleChecked = toggleRemoveProperty(toDolist, itemIndex);
+    setTodolist(arrWithToggleChecked);
+  }
+
+  function handleDelteItemFromState(itemIndex: any) {
     const arrWithoutItem = removeItem(toDolist, itemIndex);
     setTodolist(arrWithoutItem);
   }
@@ -75,7 +88,11 @@ export default function CheckboxList() {
           {toDolist.map((item, index) => {
             return (
               <ListItem disablePadding>
-                <Zoom in timeout={800}>
+                <Zoom
+                  in={!item.removing}
+                  timeout={800}
+                  onExited={() => handleDelteItemFromState(index)}
+                >
                   <ListItemButton role={undefined} dense>
                     <ListItemIcon>
                       <Checkbox
@@ -87,6 +104,7 @@ export default function CheckboxList() {
                       />
                     </ListItemIcon>
                     <ListItemText primary={item.text} />
+
                     <IconButton
                       onClick={(event: any) => handleRemoveItem(index)}
                     >
