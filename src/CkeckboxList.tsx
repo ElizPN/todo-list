@@ -7,11 +7,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import Container from "@mui/material/Container";
-import { stringify } from "querystring";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Fade from "@mui/material/Fade";
 import Zoom from "@mui/material/Zoom/Zoom";
 
 interface Item {
@@ -78,7 +75,7 @@ export default function CheckboxList() {
           {toDolist.map((item, index) => {
             return (
               <ListItem disablePadding>
-                <Fade in timeout={800}>
+                <Zoom in timeout={800}>
                   <ListItemButton role={undefined} dense>
                     <ListItemIcon>
                       <Checkbox
@@ -96,7 +93,7 @@ export default function CheckboxList() {
                       remove
                     </IconButton>
                   </ListItemButton>
-                </Fade>
+                </Zoom>
               </ListItem>
             );
           })}
