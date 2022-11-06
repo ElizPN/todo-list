@@ -10,6 +10,10 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Zoom from "@mui/material/Zoom/Zoom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 
 interface Item {
   text: string;
@@ -39,6 +43,15 @@ function toggleRemoveProperty(arr: Item[], itemIndex: number) {
 
   return copyArr;
 }
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  height: "700px",
+  lineHeight: "60px",
+  padding: "100px",
+}));
 
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>([]);
@@ -76,46 +89,53 @@ export default function CheckboxList() {
       style={{ minHeight: "100vh" }}
     >
       <Box>
-        <input
-          value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
-        />
-        <button onClick={addItemToList}> submit</button>
+        <StyledPaper variant='outlined' elevation={24} square>
+          <TextField
+            label='Let`s go!'
+            color='primary'
+            focused
+            value={inputValue}
+            onChange={(event) => setInputValue(event.target.value)}
+          />
+          <Button variant='outlined' onClick={addItemToList}>
+            Add
+          </Button>
 
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        >
-          {toDolist.map((item, index) => {
-            return (
-              <ListItem disablePadding>
-                <Zoom
-                  in={!item.removing}
-                  timeout={800}
-                  onExited={() => handleDelteItemFromState(index)}
-                >
-                  <ListItemButton role={undefined} dense>
-                    <ListItemIcon>
-                      <Checkbox
-                        edge='start'
-                        checked={item.checked}
-                        tabIndex={-1}
-                        disableRipple
-                        onClick={(event: any) => handleToggle(index)}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} />
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+          >
+            {toDolist.map((item, index) => {
+              return (
+                <ListItem disablePadding>
+                  <Zoom
+                    in={!item.removing}
+                    timeout={800}
+                    onExited={() => handleDelteItemFromState(index)}
+                  >
+                    <ListItemButton role={undefined} dense>
+                      <ListItemIcon>
+                        <Checkbox
+                          edge='start'
+                          checked={item.checked}
+                          tabIndex={-1}
+                          disableRipple
+                          onClick={(event: any) => handleToggle(index)}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} />
 
-                    <IconButton
-                      onClick={(event: any) => handleRemoveItem(index)}
-                    >
-                      remove
-                    </IconButton>
-                  </ListItemButton>
-                </Zoom>
-              </ListItem>
-            );
-          })}
-        </List>
+                      <IconButton
+                        onClick={(event: any) => handleRemoveItem(index)}
+                      >
+                        remove
+                      </IconButton>
+                    </ListItemButton>
+                  </Zoom>
+                </ListItem>
+              );
+            })}
+          </List>
+        </StyledPaper>
       </Box>
     </Grid>
   );
