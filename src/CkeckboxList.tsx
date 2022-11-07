@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -65,11 +65,24 @@ export default function CheckboxList() {
   const [inputValue, setInputValue] = useState<string>("");
   const [deletedItem, setDeletedItem] = useState<any>();
 
+  useEffect(() => {
+    const toDolist = JSON.parse(localStorage.getItem("toDolist") || "{}");
+    if (toDolist) {
+      setTodolist(toDolist);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("toDolist", JSON.stringify(toDolist));
+  // }, [toDolist]);
+
   function addItemToList(event: any) {
     let newToDoList = [...toDolist];
     newToDoList.push({ text: inputValue, checked: false, removing: false });
     setTodolist(newToDoList);
     setInputValue("");
+
+    localStorage.setItem("toDolist", JSON.stringify(toDolist));
   }
 
   function handleRemoveItem(itemIndex: any) {
