@@ -148,7 +148,10 @@ export default function CheckboxList() {
                         onClick={(event: any) => handleToggle(index)}
                       />
                     </ListItemIcon>
-                    <ListItemText primary={item.text} />
+                    <ListItemText
+                      primary={item.text}
+                      sx={{ overflow: "auto" }}
+                    />
 
                     <DeleteIcon
                       color='primary'
