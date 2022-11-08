@@ -112,8 +112,13 @@ export default function CheckboxList() {
             focused
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
+            sx={{ width: "90%" }}
           />
-          <Button variant='outlined' onClick={addItemToList} sx={{ ml: 2 }}>
+          <Button
+            variant='outlined'
+            onClick={addItemToList}
+            sx={{ ml: 2, width: "10%" }}
+          >
             Add
           </Button>
         </SyledFieldArea>
