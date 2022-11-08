@@ -61,28 +61,21 @@ const SyledFieldArea = styled(Box)(() => ({
 }));
 
 export default function CheckboxList() {
-  const [toDolist, setTodolist] = useState<Item[]>([]);
+  const [toDolist, setTodolist] = useState<Item[]>(
+    JSON.parse(localStorage.getItem("toDolist") || "{}")
+  );
   const [inputValue, setInputValue] = useState<string>("");
   const [deletedItem, setDeletedItem] = useState<any>();
 
   useEffect(() => {
-    const toDolist = JSON.parse(localStorage.getItem("toDolist") || "{}");
-    if (toDolist) {
-      setTodolist(toDolist);
-    }
-  }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("toDolist", JSON.stringify(toDolist));
-  // }, [toDolist]);
+    localStorage.setItem("toDolist", JSON.stringify(toDolist));
+  }, [toDolist]);
 
   function addItemToList(event: any) {
     let newToDoList = [...toDolist];
     newToDoList.push({ text: inputValue, checked: false, removing: false });
     setTodolist(newToDoList);
     setInputValue("");
-
-    localStorage.setItem("toDolist", JSON.stringify(toDolist));
   }
 
   function handleRemoveItem(itemIndex: any) {
