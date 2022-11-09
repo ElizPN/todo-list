@@ -15,11 +15,13 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CreateIcon from "@mui/icons-material/Create";
 
 interface Item {
   text: string;
   checked: boolean;
   removing: boolean;
+  editItem: boolean;
 }
 
 function removeItem(arr: Item[], num: number) {
@@ -31,7 +33,7 @@ function removeItem(arr: Item[], num: number) {
   return arrConcat;
 }
 
-function toggleProperty(arr: Item[], itemIndex: number) {
+function toggleCheckedProperty(arr: Item[], itemIndex: number) {
   const copyArr = [...arr];
   copyArr[itemIndex].checked = !copyArr[itemIndex].checked;
 
@@ -41,6 +43,13 @@ function toggleProperty(arr: Item[], itemIndex: number) {
 function toggleRemoveProperty(arr: Item[], itemIndex: number) {
   const copyArr = [...arr];
   copyArr[itemIndex].removing = !copyArr[itemIndex].removing;
+
+  return copyArr;
+}
+
+function toggleEditProperty(arr: Item[], itemIndex: number) {
+  const copyArr = [...arr];
+  copyArr[itemIndex].editItem = !copyArr[itemIndex].editItem;
 
   return copyArr;
 }
@@ -65,7 +74,7 @@ export default function CheckboxList() {
     JSON.parse(localStorage.getItem("toDolist") || "{}")
   );
   const [inputValue, setInputValue] = useState<string>("");
-  const [deletedItem, setDeletedItem] = useState<any>();
+  const [inputEditItem, setInputEditItem] = useState<string>("");
 
   useEffect(() => {
     localStorage.setItem("toDolist", JSON.stringify(toDolist));
@@ -73,7 +82,12 @@ export default function CheckboxList() {
 
   function addItemToList(event: any) {
     let newToDoList = [...toDolist];
-    newToDoList.push({ text: inputValue, checked: false, removing: false });
+    newToDoList.push({
+      text: inputValue,
+      checked: false,
+      removing: false,
+      editItem: false,
+    });
     setTodolist(newToDoList);
     setInputValue("");
   }
@@ -88,9 +102,14 @@ export default function CheckboxList() {
     setTodolist(arrWithoutItem);
   }
 
-  function handleToggle(itemIndex: any) {
-    const arrWithToggleChecked = toggleProperty(toDolist, itemIndex);
+  function handleToggleCheked(itemIndex: any) {
+    const arrWithToggleChecked = toggleCheckedProperty(toDolist, itemIndex);
     setTodolist(arrWithToggleChecked);
+  }
+
+  function handleEditItem(itemIndex: any) {
+    const arrWithToggledEditProp = toggleEditProperty(toDolist, itemIndex);
+    setTodolist(arrWithToggledEditProp);
   }
 
   return (
@@ -145,14 +164,27 @@ export default function CheckboxList() {
                         checked={item.checked}
                         tabIndex={-1}
                         disableRipple
-                        onClick={(event: any) => handleToggle(index)}
+                        onClick={(event: any) => handleToggleCheked(index)}
                       />
                     </ListItemIcon>
-                    <ListItemText
-                      primary={item.text}
-                      sx={{ overflow: "auto" }}
-                    />
 
+                    {item.editItem ? (
+                      <input
+                        value={item.text}
+                        onChange={(event) =>
+                          setInputEditItem(event.target.value)
+                        }
+                        onBlur={(event: any) => handleEditItem(index)}
+                      />
+                    ) : (
+                      <ListItemText
+                        primary={item.text}
+                        sx={{ overflow: "auto" }}
+                      />
+                    )}
+                    <CreateIcon
+                      onClick={(event: any) => handleEditItem(index)}
+                    ></CreateIcon>
                     <DeleteIcon
                       color='primary'
                       onClick={(event: any) => handleRemoveItem(index)}
