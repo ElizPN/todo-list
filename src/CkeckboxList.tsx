@@ -49,7 +49,11 @@ function toggleRemoveProperty(arr: Item[], itemIndex: number) {
 
 function toggleEditProperty(arr: Item[], itemIndex: number) {
   const copyArr = [...arr];
-  copyArr[itemIndex].editItem = !copyArr[itemIndex].editItem;
+  // copyArr[itemIndex].editItem = !copyArr[itemIndex].editItem;
+
+  for (let i = 0; i < copyArr.length; i++) {
+    copyArr[i].editItem = i === itemIndex ? !copyArr[i].editItem : false;
+  }
 
   return copyArr;
 }
