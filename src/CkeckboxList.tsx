@@ -16,6 +16,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
+import SaveIcon from "@mui/icons-material/Save";
 
 interface Item {
   text: string;
@@ -69,6 +70,11 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const SyledFieldArea = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+}));
+
+const SyledTextItem = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
 }));
@@ -174,23 +180,28 @@ export default function CheckboxList() {
                     </ListItemIcon>
 
                     {item.editItem ? (
-                      <input
-                        value={inputEditItem}
-                        // inputEditItem should be equal item.text
-                        onChange={(event) =>
-                          setInputEditItem(event.target.value)
-                        }
-                        onBlur={(event: any) => handleEditItem(index)}
-                      />
+                      <Box>
+                        <input
+                          value={inputEditItem}
+                          onChange={(event) =>
+                            setInputEditItem(event.target.value)
+                          }
+                          onBlur={(event: any) => handleEditItem(index)}
+                        />
+                        <SaveIcon></SaveIcon>
+                      </Box>
                     ) : (
-                      <ListItemText
-                        primary={item.text}
-                        sx={{ overflow: "auto" }}
-                      />
+                      <SyledTextItem>
+                        <ListItemText
+                          primary={item.text}
+                          sx={{ overflow: "auto" }}
+                        />
+                        <CreateIcon
+                          onClick={(event: any) => handleEditItem(index)}
+                        ></CreateIcon>
+                      </SyledTextItem>
                     )}
-                    <CreateIcon
-                      onClick={(event: any) => handleEditItem(index)}
-                    ></CreateIcon>
+
                     <DeleteIcon
                       color='primary'
                       onClick={(event: any) => handleRemoveItem(index)}
