@@ -114,6 +114,7 @@ export default function CheckboxList() {
   function handleEditItem(itemIndex: any) {
     const arrWithToggledEditProp = toggleEditProperty(toDolist, itemIndex);
     setTodolist(arrWithToggledEditProp);
+    setInputEditItem(toDolist[itemIndex].text);
   }
 
   return (
@@ -174,7 +175,8 @@ export default function CheckboxList() {
 
                     {item.editItem ? (
                       <input
-                        value={item.text}
+                        value={inputEditItem}
+                        // inputEditItem should be equal item.text
                         onChange={(event) =>
                           setInputEditItem(event.target.value)
                         }
