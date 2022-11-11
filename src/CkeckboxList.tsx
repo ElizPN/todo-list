@@ -1,12 +1,8 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Zoom from "@mui/material/Zoom/Zoom";
@@ -83,17 +79,6 @@ const SyledFieldArea = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
 }));
-
-// const SyledTextItem = styled(Box)(() => ({
-//   display: "flex",
-//   alignItems: "center",
-//   overflow: "auto",
-// }));
-
-// const StyledInputItem = styled(Box)(() => ({
-//   display: "flex",
-//   alignItems: "center",
-// }));
 
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>(
