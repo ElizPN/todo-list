@@ -17,6 +17,7 @@ import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 interface Item {
   text: string;
@@ -57,6 +58,17 @@ function toggleEditProperty(arr: Item[], itemIndex: number) {
   return copyArr;
 }
 
+const Theme = {
+  palette: {
+    primary: {
+      main: "#3f50b5",
+    },
+    secondary: {
+      main: "#f44336",
+    },
+  },
+};
+
 const StyledPaper = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: "center",
@@ -72,10 +84,16 @@ const SyledFieldArea = styled(Box)(() => ({
   alignItems: "center",
 }));
 
-const SyledTextItem = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-}));
+// const SyledTextItem = styled(Box)(() => ({
+//   display: "flex",
+//   alignItems: "center",
+//   overflow: "auto",
+// }));
+
+// const StyledInputItem = styled(Box)(() => ({
+//   display: "flex",
+//   alignItems: "center",
+// }));
 
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>(
@@ -87,6 +105,8 @@ export default function CheckboxList() {
   useEffect(() => {
     localStorage.setItem("toDolist", JSON.stringify(toDolist));
   }, [toDolist]);
+
+  const theme = createTheme(Theme);
 
   function addItemToList(event: any) {
     let newToDoList = [...toDolist];
@@ -132,96 +152,98 @@ export default function CheckboxList() {
   }
 
   return (
-    <Grid
-      container
-      direction='column'
-      alignItems='center'
-      justifyContent='center'
-      sx={{
-        minHeight: "100vh",
-      }}
-    >
-      <StyledPaper variant='outlined' square>
-        <SyledFieldArea>
-          <TextField
-            size='small'
-            label='Let`s go!'
-            color='primary'
-            focused
-            value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
-            sx={{ width: "90%" }}
-          />
-          <Button
-            variant='outlined'
-            onClick={addItemToList}
-            sx={{ ml: 2, width: "10%" }}
-          >
-            Add
-          </Button>
-        </SyledFieldArea>
+    <ThemeProvider theme={theme}>
+      <Grid
+        container
+        direction='column'
+        alignItems='center'
+        justifyContent='center'
+        sx={{
+          minHeight: "100vh",
+        }}
+      >
+        <StyledPaper variant='outlined' square>
+          <SyledFieldArea>
+            <TextField
+              size='small'
+              label='Let`s go!'
+              color='primary'
+              focused
+              value={inputValue}
+              onChange={(event) => setInputValue(event.target.value)}
+              sx={{ width: "90%" }}
+            />
+            <Button
+              variant='outlined'
+              onClick={addItemToList}
+              sx={{ ml: 2, width: "10%" }}
+            >
+              Add
+            </Button>
+          </SyledFieldArea>
 
-        <List
-          sx={{
-            width: "100%",
-            maxWidth: 360,
-            bgcolor: "#FBEBE7",
-          }}
-        >
-          {toDolist.map((item, index) => {
-            return (
-              <ListItem disablePadding>
-                <Zoom
-                  in={!item.removing}
-                  timeout={800}
-                  onExited={() => handleDelteItemFromState(index)}
-                >
-                  <ListItemButton role={undefined} dense>
-                    <ListItemIcon>
-                      <Checkbox
-                        edge='start'
-                        checked={item.checked}
-                        tabIndex={-1}
-                        disableRipple
-                        onClick={(event: any) => handleToggleCheked(index)}
-                      />
-                    </ListItemIcon>
-
-                    {item.editItem ? (
-                      <Box>
+          {toDolist.map((item, index) => (
+            <Grid container spacing={2}>
+              <Zoom
+                in={!item.removing}
+                timeout={800}
+                onExited={() => handleDelteItemFromState(index)}
+              >
+                <ListItemButton role={undefined} dense>
+                  <Grid item xs={1}>
+                    <Checkbox
+                      edge='start'
+                      checked={item.checked}
+                      tabIndex={-1}
+                      disableRipple
+                      onClick={(event: any) => handleToggleCheked(index)}
+                    />
+                  </Grid>
+                  {item.editItem ? (
+                    <>
+                      <Grid item xs={9}>
                         <input
                           value={inputEditItem}
                           onChange={(event) =>
                             setInputEditItem(event.target.value)
                           }
                         />
+                      </Grid>
+                      <Grid item xs={2}>
                         <SaveIcon
+                          color='secondary'
                           onClick={(event: any) => handlerSaveItem(index)}
                         ></SaveIcon>
-                      </Box>
-                    ) : (
-                      <SyledTextItem>
+                      </Grid>
+                    </>
+                  ) : (
+                    <>
+                      <Grid item xs={9}>
                         <ListItemText
                           primary={item.text}
                           sx={{ overflow: "auto" }}
                         />
+                      </Grid>
+                      <Grid item xs={1}>
                         <CreateIcon
+                          color='primary'
                           onClick={(event: any) => handleEditItem(index)}
                         ></CreateIcon>
-                      </SyledTextItem>
-                    )}
-
-                    <DeleteIcon
-                      color='primary'
-                      onClick={(event: any) => handleRemoveItem(index)}
-                    ></DeleteIcon>
-                  </ListItemButton>
-                </Zoom>
-              </ListItem>
-            );
-          })}
-        </List>
-      </StyledPaper>
-    </Grid>
+                      </Grid>
+                      <Grid item xs={1}>
+                        <DeleteIcon
+                          color='primary'
+                          onClick={(event: any) => handleRemoveItem(index)}
+                        ></DeleteIcon>
+                      </Grid>
+                    </>
+                  )}
+                </ListItemButton>
+              </Zoom>
+            </Grid>
+          ))}
+        </StyledPaper>
+      </Grid>
+    </ThemeProvider>
   );
 }
