@@ -122,13 +122,11 @@ export default function CheckboxList() {
   }
 
   function handlerSaveItem(itemIndex: any) {
-    console.log("test");
-
     let newToDoList = [...toDolist];
     newToDoList[itemIndex].text = inputEditItem;
+    newToDoList[itemIndex].editItem = !newToDoList[itemIndex].editItem;
 
     setTodolist(newToDoList);
-    console.log(inputEditItem);
 
     // setInputEditItem("");
   }
