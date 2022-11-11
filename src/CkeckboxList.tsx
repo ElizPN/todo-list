@@ -50,12 +50,10 @@ function toggleRemoveProperty(arr: Item[], itemIndex: number) {
 
 function toggleEditProperty(arr: Item[], itemIndex: number) {
   const copyArr = [...arr];
-  // copyArr[itemIndex].editItem = !copyArr[itemIndex].editItem;
 
   for (let i = 0; i < copyArr.length; i++) {
     copyArr[i].editItem = i === itemIndex ? !copyArr[i].editItem : false;
   }
-
   return copyArr;
 }
 
@@ -123,6 +121,18 @@ export default function CheckboxList() {
     setInputEditItem(toDolist[itemIndex].text);
   }
 
+  function handlerSaveItem(itemIndex: any) {
+    console.log("test");
+
+    let newToDoList = [...toDolist];
+    newToDoList[itemIndex].text = inputEditItem;
+
+    setTodolist(newToDoList);
+    console.log(inputEditItem);
+
+    // setInputEditItem("");
+  }
+
   return (
     <Grid
       container
@@ -186,9 +196,10 @@ export default function CheckboxList() {
                           onChange={(event) =>
                             setInputEditItem(event.target.value)
                           }
-                          onBlur={(event: any) => handleEditItem(index)}
                         />
-                        <SaveIcon></SaveIcon>
+                        <SaveIcon
+                          onClick={(event: any) => handlerSaveItem(index)}
+                        ></SaveIcon>
                       </Box>
                     ) : (
                       <SyledTextItem>
