@@ -1,21 +1,13 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Zoom from "@mui/material/Zoom/Zoom";
-import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CreateIcon from "@mui/icons-material/Create";
-import SaveIcon from "@mui/icons-material/Save";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AddTodoItem } from "./AddTodoItem";
+import { TodoItem } from "./TodoItem";
 
-interface Item {
+export interface Item {
   text: string;
   checked: boolean;
   removing: boolean;
@@ -104,30 +96,30 @@ export default function CheckboxList() {
   };
 
   // TodoItem
-  const handleRemoveItem = (itemIndex: any) => {
+  const handleRemoveItem = (itemIndex: number) => {
     const arrWithItemRemoving = toggleRemoveProperty(toDolist, itemIndex);
     setTodolist(arrWithItemRemoving);
   };
 
   // TodoItem
-  const handleDelteItemFromState = (itemIndex: any) => {
+  const handleDelteItemFromState = (itemIndex: number) => {
     const arrWithoutItem = removeItem(toDolist, itemIndex);
     setTodolist(arrWithoutItem);
   };
 
   // TodoItem
-  const handleToggleCheked = (itemIndex: any) => {
+  const handleToggleCheked = (itemIndex: number) => {
     const arrWithToggleChecked = toggleCheckedProperty(toDolist, itemIndex);
     setTodolist(arrWithToggleChecked);
   };
   // TodoItem
-  const handleEditItem = (itemIndex: any) => {
+  const handleEditItem = (itemIndex: number) => {
     const arrWithToggledEditProp = toggleEditProperty(toDolist, itemIndex);
     setTodolist(arrWithToggledEditProp);
     setInputEditItem(toDolist[itemIndex].text);
   };
   // TodoItem
-  const handlerSaveItem = (itemIndex: any) => {
+  const handlerSaveItem = (itemIndex: number) => {
     let newToDoList = [...toDolist];
     newToDoList[itemIndex].text = inputEditItem;
     newToDoList[itemIndex].editItem = !newToDoList[itemIndex].editItem;
@@ -156,71 +148,17 @@ export default function CheckboxList() {
           ></AddTodoItem>
 
           {toDolist.map((item, index) => (
-            <Grid container spacing={2}>
-              <Zoom
-                in={!item.removing}
-                timeout={800}
-                onExited={() => handleDelteItemFromState(index)}
-              >
-                <ListItemButton role={undefined} dense>
-                  <Grid item xs={1}>
-                    <Checkbox
-                      edge='start'
-                      checked={item.checked}
-                      tabIndex={-1}
-                      disableRipple
-                      onClick={(event: any) => handleToggleCheked(index)}
-                    />
-                  </Grid>
-                  {item.editItem ? (
-                    <>
-                      <Grid item xs={9}>
-                        <TextField
-                          sx={{ width: "250px", paddingTop: "15px " }}
-                          id='standard-basic'
-                          label=''
-                          variant='standard'
-                          value={inputEditItem}
-                          onChange={(event) =>
-                            setInputEditItem(event.target.value)
-                          }
-                        />
-                      </Grid>
-                      <Grid item xs={2}>
-                        <SaveIcon
-                          sx={{ paddingTop: "25px", paddingLeft: "20px" }}
-                          color='secondary'
-                          onClick={(event: any) => handlerSaveItem(index)}
-                        ></SaveIcon>
-                      </Grid>
-                    </>
-                  ) : (
-                    <>
-                      <Grid item xs={9}>
-                        <ListItemText
-                          primary={item.text}
-                          sx={{ overflow: "auto", paddingTop: "4px" }}
-                        />
-                      </Grid>
-                      <Grid item xs={1}>
-                        <CreateIcon
-                          sx={{ paddingTop: "25px" }}
-                          color='primary'
-                          onClick={(event: any) => handleEditItem(index)}
-                        ></CreateIcon>
-                      </Grid>
-                      <Grid item xs={1}>
-                        <DeleteIcon
-                          sx={{ paddingTop: "25px" }}
-                          color='primary'
-                          onClick={(event: any) => handleRemoveItem(index)}
-                        ></DeleteIcon>
-                      </Grid>
-                    </>
-                  )}
-                </ListItemButton>
-              </Zoom>
-            </Grid>
+            <TodoItem
+              inputEditItem={inputEditItem}
+              setInputEditItem={setInputEditItem}
+              handleRemoveItem={handleRemoveItem}
+              handleDelteItemFromState={handleDelteItemFromState}
+              handleToggleCheked={handleToggleCheked}
+              handleEditItem={handleEditItem}
+              handlerSaveItem={handlerSaveItem}
+              item={item}
+              index={index}
+            ></TodoItem>
           ))}
         </StyledPaper>
       </Grid>
