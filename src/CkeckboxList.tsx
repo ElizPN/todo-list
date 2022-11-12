@@ -197,6 +197,7 @@ export default function CheckboxList() {
                       </Grid>
                       <Grid item xs={2}>
                         <SaveIcon
+                          sx={{ paddingTop: "25px", paddingLeft: "20px" }}
                           color='secondary'
                           onClick={(event: any) => handlerSaveItem(index)}
                         ></SaveIcon>
