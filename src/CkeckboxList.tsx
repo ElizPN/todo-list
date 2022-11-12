@@ -78,6 +78,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const SyledFieldArea = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
+  paddingBottom: "20px",
 }));
 
 export default function CheckboxList() {
@@ -211,12 +212,14 @@ export default function CheckboxList() {
                       </Grid>
                       <Grid item xs={1}>
                         <CreateIcon
+                          sx={{ paddingTop: "25px" }}
                           color='primary'
                           onClick={(event: any) => handleEditItem(index)}
                         ></CreateIcon>
                       </Grid>
                       <Grid item xs={1}>
                         <DeleteIcon
+                          sx={{ paddingTop: "25px" }}
                           color='primary'
                           onClick={(event: any) => handleRemoveItem(index)}
                         ></DeleteIcon>
