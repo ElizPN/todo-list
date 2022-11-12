@@ -7,13 +7,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Zoom from "@mui/material/Zoom/Zoom";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { AddTodoItem } from "./AddTodoItem";
 
 interface Item {
   text: string;
@@ -21,38 +21,38 @@ interface Item {
   removing: boolean;
   editItem: boolean;
 }
-
-function removeItem(arr: Item[], num: number) {
+// TodoItem
+const removeItem = (arr: Item[], num: number) => {
   const arrClone = [...arr];
   const partBeforeItem = arrClone.slice(0, num);
   const partAfterItem = arrClone.slice(num + 1);
   const arrConcat = [...partBeforeItem, ...partAfterItem];
 
   return arrConcat;
-}
-
-function toggleCheckedProperty(arr: Item[], itemIndex: number) {
+};
+// TodoItem
+const toggleCheckedProperty = (arr: Item[], itemIndex: number) => {
   const copyArr = [...arr];
   copyArr[itemIndex].checked = !copyArr[itemIndex].checked;
 
   return copyArr;
-}
-
-function toggleRemoveProperty(arr: Item[], itemIndex: number) {
+};
+//  TodoItem
+const toggleRemoveProperty = (arr: Item[], itemIndex: number) => {
   const copyArr = [...arr];
   copyArr[itemIndex].removing = !copyArr[itemIndex].removing;
 
   return copyArr;
-}
-
-function toggleEditProperty(arr: Item[], itemIndex: number) {
+};
+//  TodoItem
+const toggleEditProperty = (arr: Item[], itemIndex: number) => {
   const copyArr = [...arr];
 
   for (let i = 0; i < copyArr.length; i++) {
     copyArr[i].editItem = i === itemIndex ? !copyArr[i].editItem : false;
   }
   return copyArr;
-}
+};
 
 const Theme = {
   palette: {
@@ -60,7 +60,7 @@ const Theme = {
       main: "#3f50b5",
     },
     secondary: {
-      main: "#f44336",
+      main: "#388e3c",
     },
   },
 };
@@ -75,17 +75,13 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: "#FBEBE7",
 }));
 
-const SyledFieldArea = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-  paddingBottom: "20px",
-}));
-
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>(
     JSON.parse(localStorage.getItem("toDolist") || "{}")
   );
+  // AddTodoItem
   const [inputValue, setInputValue] = useState<string>("");
+  // TodoItem
   const [inputEditItem, setInputEditItem] = useState<string>("");
 
   useEffect(() => {
@@ -94,7 +90,8 @@ export default function CheckboxList() {
 
   const theme = createTheme(Theme);
 
-  function addItemToList(event: any) {
+  // AddTodoItem
+  const addItemToList = (event: React.MouseEvent<HTMLElement>) => {
     let newToDoList = [...toDolist];
     newToDoList.push({
       text: inputValue,
@@ -104,30 +101,33 @@ export default function CheckboxList() {
     });
     setTodolist(newToDoList);
     setInputValue("");
-  }
+  };
 
-  function handleRemoveItem(itemIndex: any) {
-    const arrWithToggleChecked = toggleRemoveProperty(toDolist, itemIndex);
-    setTodolist(arrWithToggleChecked);
-  }
+  // TodoItem
+  const handleRemoveItem = (itemIndex: any) => {
+    const arrWithItemRemoving = toggleRemoveProperty(toDolist, itemIndex);
+    setTodolist(arrWithItemRemoving);
+  };
 
-  function handleDelteItemFromState(itemIndex: any) {
+  // TodoItem
+  const handleDelteItemFromState = (itemIndex: any) => {
     const arrWithoutItem = removeItem(toDolist, itemIndex);
     setTodolist(arrWithoutItem);
-  }
+  };
 
-  function handleToggleCheked(itemIndex: any) {
+  // TodoItem
+  const handleToggleCheked = (itemIndex: any) => {
     const arrWithToggleChecked = toggleCheckedProperty(toDolist, itemIndex);
     setTodolist(arrWithToggleChecked);
-  }
-
-  function handleEditItem(itemIndex: any) {
+  };
+  // TodoItem
+  const handleEditItem = (itemIndex: any) => {
     const arrWithToggledEditProp = toggleEditProperty(toDolist, itemIndex);
     setTodolist(arrWithToggledEditProp);
     setInputEditItem(toDolist[itemIndex].text);
-  }
-
-  function handlerSaveItem(itemIndex: any) {
+  };
+  // TodoItem
+  const handlerSaveItem = (itemIndex: any) => {
     let newToDoList = [...toDolist];
     newToDoList[itemIndex].text = inputEditItem;
     newToDoList[itemIndex].editItem = !newToDoList[itemIndex].editItem;
@@ -135,7 +135,7 @@ export default function CheckboxList() {
     setTodolist(newToDoList);
 
     // setInputEditItem("");
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -149,24 +149,11 @@ export default function CheckboxList() {
         }}
       >
         <StyledPaper variant='outlined' square>
-          <SyledFieldArea>
-            <TextField
-              size='small'
-              label='Let`s go!'
-              color='primary'
-              focused
-              value={inputValue}
-              onChange={(event) => setInputValue(event.target.value)}
-              sx={{ width: "90%" }}
-            />
-            <Button
-              variant='outlined'
-              onClick={addItemToList}
-              sx={{ ml: 2, width: "10%" }}
-            >
-              Add
-            </Button>
-          </SyledFieldArea>
+          <AddTodoItem
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            addItemToList={addItemToList}
+          ></AddTodoItem>
 
           {toDolist.map((item, index) => (
             <Grid container spacing={2}>
