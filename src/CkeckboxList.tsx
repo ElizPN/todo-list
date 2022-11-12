@@ -188,7 +188,11 @@ export default function CheckboxList() {
                   {item.editItem ? (
                     <>
                       <Grid item xs={9}>
-                        <input
+                        <TextField
+                          sx={{ width: "250px", paddingTop: "15px " }}
+                          id='standard-basic'
+                          label=''
+                          variant='standard'
                           value={inputEditItem}
                           onChange={(event) =>
                             setInputEditItem(event.target.value)
@@ -208,7 +212,7 @@ export default function CheckboxList() {
                       <Grid item xs={9}>
                         <ListItemText
                           primary={item.text}
-                          sx={{ overflow: "auto" }}
+                          sx={{ overflow: "auto", paddingTop: "4px" }}
                         />
                       </Grid>
                       <Grid item xs={1}>
