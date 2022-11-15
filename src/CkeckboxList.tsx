@@ -59,6 +59,7 @@ export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>(
     JSON.parse(localStorage.getItem("toDolist") || "{}")
   );
+
   // AddTodoItem
   const [inputValue, setInputValue] = useState<string>("");
   // TodoItem
@@ -143,6 +144,7 @@ export default function CheckboxList() {
             handlerSaveItem={handlerSaveItem}
             item={item}
             index={index}
+            key={index}
           ></TodoItem>
         ))}
       </StyledPaper>
