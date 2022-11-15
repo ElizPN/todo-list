@@ -9,6 +9,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
 import { Item } from "./CkeckboxList";
+import { styled } from "@mui/material/styles";
+
+const StyledTextField = styled(TextField)(() => ({
+  width: "250px",
+  paddingTop: "15px ",
+}));
+
+const StyledSaveIcon = styled(SaveIcon)(() => ({
+  paddingTop: "25px",
+  paddingLeft: "20px",
+}));
 
 interface TodoItemProps {
   item: Item;
@@ -52,11 +63,7 @@ export const TodoItem = ({
         {item.editItem ? (
           <>
             <Grid item xs={9}>
-              <TextField
-                sx={{
-                  width: "250px",
-                  paddingTop: "15px ",
-                }}
+              <StyledTextField
                 id='standard-basic'
                 label=''
                 variant='standard'
@@ -65,14 +72,10 @@ export const TodoItem = ({
               />
             </Grid>
             <Grid item xs={2}>
-              <SaveIcon
-                sx={{
-                  paddingTop: "25px",
-                  paddingLeft: "20px",
-                }}
-                color='secondary'
+              <StyledSaveIcon
+                // color='secondary'
                 onClick={(event: any) => handlerSaveItem(index)}
-              ></SaveIcon>
+              ></StyledSaveIcon>
             </Grid>
           </>
         ) : (
