@@ -83,6 +83,7 @@ export const TodoItem = ({
                 sx={{
                   overflow: "auto",
                   paddingTop: "4px",
+                  paddingLeft: "10px",
                 }}
               />
             </Grid>
