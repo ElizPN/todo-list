@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AddTodoItem } from "./AddTodoItem";
 import { TodoItem } from "./TodoItem";
 
@@ -46,17 +45,6 @@ const toggleEditProperty = (arr: Item[], itemIndex: number) => {
   return copyArr;
 };
 
-const Theme = {
-  palette: {
-    primary: {
-      main: "#3f50b5",
-    },
-    secondary: {
-      main: "#388e3c",
-    },
-  },
-};
-
 const StyledPaper = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: "center",
@@ -79,8 +67,6 @@ export default function CheckboxList() {
   useEffect(() => {
     localStorage.setItem("toDolist", JSON.stringify(toDolist));
   }, [toDolist]);
-
-  const theme = createTheme(Theme);
 
   // AddTodoItem
   const addItemToList = (event: React.MouseEvent<HTMLElement>) => {
@@ -130,38 +116,36 @@ export default function CheckboxList() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid
-        container
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        sx={{
-          minHeight: "100vh",
-        }}
-      >
-        <StyledPaper variant='outlined' square>
-          <AddTodoItem
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            addItemToList={addItemToList}
-          ></AddTodoItem>
+    <Grid
+      container
+      direction='column'
+      alignItems='center'
+      justifyContent='center'
+      sx={{
+        minHeight: "100vh",
+      }}
+    >
+      <StyledPaper variant='outlined' square>
+        <AddTodoItem
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          addItemToList={addItemToList}
+        ></AddTodoItem>
 
-          {toDolist.map((item, index) => (
-            <TodoItem
-              inputEditItem={inputEditItem}
-              setInputEditItem={setInputEditItem}
-              handleRemoveItem={handleRemoveItem}
-              handleDelteItemFromState={handleDelteItemFromState}
-              handleToggleCheked={handleToggleCheked}
-              handleEditItem={handleEditItem}
-              handlerSaveItem={handlerSaveItem}
-              item={item}
-              index={index}
-            ></TodoItem>
-          ))}
-        </StyledPaper>
-      </Grid>
-    </ThemeProvider>
+        {toDolist.map((item, index) => (
+          <TodoItem
+            inputEditItem={inputEditItem}
+            setInputEditItem={setInputEditItem}
+            handleRemoveItem={handleRemoveItem}
+            handleDelteItemFromState={handleDelteItemFromState}
+            handleToggleCheked={handleToggleCheked}
+            handleEditItem={handleEditItem}
+            handlerSaveItem={handlerSaveItem}
+            item={item}
+            index={index}
+          ></TodoItem>
+        ))}
+      </StyledPaper>
+    </Grid>
   );
 }
