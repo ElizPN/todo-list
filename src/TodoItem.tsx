@@ -21,6 +21,12 @@ const StyledSaveIcon = styled(SaveIcon)(() => ({
   paddingLeft: "20px",
 }));
 
+const StyledListItemText = styled(ListItemText)(() => ({
+  overflow: "auto",
+  paddingTop: "4px",
+  paddingLeft: "10px",
+}));
+
 interface TodoItemProps {
   item: Item;
   index: number;
@@ -73,7 +79,7 @@ export const TodoItem = ({
             </Grid>
             <Grid item xs={2}>
               <StyledSaveIcon
-                // color='secondary'
+                color='secondary'
                 onClick={(event: any) => handlerSaveItem(index)}
               ></StyledSaveIcon>
             </Grid>
@@ -81,14 +87,7 @@ export const TodoItem = ({
         ) : (
           <>
             <Grid item xs={9}>
-              <ListItemText
-                primary={item.text}
-                sx={{
-                  overflow: "auto",
-                  paddingTop: "4px",
-                  paddingLeft: "10px",
-                }}
-              />
+              <StyledListItemText primary={item.text} />
             </Grid>
             <Grid item xs={1}>
               <CreateIcon
