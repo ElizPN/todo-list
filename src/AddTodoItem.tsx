@@ -10,8 +10,9 @@ export const SyledFieldArea = styled(Box)(() => ({
   paddingBottom: "20px",
 }));
 
-export const SyledTextField = styled(TextField)(() => ({
+export const SyledTextField = styled(TextField)(({ theme }) => ({
   width: "90%",
+  color: theme.palette.primary.main,
 }));
 
 export const SyledAddButton = styled(Button)(() => ({
@@ -34,7 +35,6 @@ export const AddTodoItem = ({
     <SyledTextField
       size='small'
       label='Let`s go!'
-      color='primary'
       focused
       value={inputValue}
       onChange={(event) => setInputValue(event.target.value)}
