@@ -17,6 +17,12 @@ const StyledTextField = styled(TextField)(() => ({
   paddingTop: "15px ",
 }));
 
+export const StyledListItemText = styled(ListItemText)(() => ({
+  overflow: "auto",
+  paddingTop: "4px",
+  paddingLeft: "10px",
+}));
+
 const StyledSaveIcon = styled(SaveIcon)(() => ({
   paddingTop: "25px",
   paddingLeft: "20px",
@@ -31,12 +37,6 @@ const StyledCreateIcon = styled(CreateIcon)(() => ({
 const StyledDeleteIcon = styled(DeleteIcon)(({ theme }) => ({
   paddingTop: "25px",
   color: theme.palette.primary.main,
-}));
-
-const StyledListItemText = styled(ListItemText)(() => ({
-  overflow: "auto",
-  paddingTop: "4px",
-  paddingLeft: "10px",
 }));
 
 interface TodoItemProps {
@@ -98,7 +98,10 @@ export const TodoItem = ({
         ) : (
           <>
             <Grid item xs={9}>
-              <StyledListItemText primary={item.text} />
+              <StyledListItemText
+                primary={item.text}
+                sx={{ textDecoration: item.checked ? "line-through" : "none" }}
+              />
             </Grid>
             <Grid item xs={1}>
               <StyledCreateIcon
