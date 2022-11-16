@@ -10,6 +10,15 @@ export const SyledFieldArea = styled(Box)(() => ({
   paddingBottom: "20px",
 }));
 
+export const SyledTextField = styled(TextField)(() => ({
+  width: "90%",
+}));
+
+export const SyledAddButton = styled(Button)(() => ({
+  marginLeft: "20px",
+  width: "10%",
+}));
+
 interface AddTodoItemProps {
   inputValue: string;
   setInputValue: (value: string) => void;
@@ -22,26 +31,16 @@ export const AddTodoItem = ({
   addItemToList,
 }: AddTodoItemProps) => (
   <SyledFieldArea>
-    <TextField
+    <SyledTextField
       size='small'
       label='Let`s go!'
       color='primary'
       focused
       value={inputValue}
       onChange={(event) => setInputValue(event.target.value)}
-      sx={{
-        width: "90%",
-      }}
     />
-    <Button
-      variant='outlined'
-      onClick={addItemToList}
-      sx={{
-        ml: 2,
-        width: "10%",
-      }}
-    >
+    <SyledAddButton variant='outlined' onClick={addItemToList}>
       Add
-    </Button>
+    </SyledAddButton>
   </SyledFieldArea>
 );
