@@ -55,6 +55,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: "#FBEBE7",
 }));
 
+const StyledGridContainer = styled(Grid)(() => ({
+  minHeight: "100vh",
+}));
+
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>(
     JSON.parse(localStorage.getItem("toDolist") || "{}")
@@ -117,14 +121,11 @@ export default function CheckboxList() {
   };
 
   return (
-    <Grid
+    <StyledGridContainer
       container
       direction='column'
       alignItems='center'
       justifyContent='center'
-      sx={{
-        minHeight: "100vh",
-      }}
     >
       <StyledPaper variant='outlined' square>
         <AddTodoItem
@@ -148,6 +149,6 @@ export default function CheckboxList() {
           ></TodoItem>
         ))}
       </StyledPaper>
-    </Grid>
+    </StyledGridContainer>
   );
 }
