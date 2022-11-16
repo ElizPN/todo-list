@@ -27,6 +27,10 @@ const StyledListItemText = styled(ListItemText)(() => ({
   paddingLeft: "10px",
 }));
 
+const StyledCreateIcon = styled(CreateIcon)(() => ({
+  paddingTop: "25px",
+}));
+
 interface TodoItemProps {
   item: Item;
   index: number;
@@ -90,13 +94,10 @@ export const TodoItem = ({
               <StyledListItemText primary={item.text} />
             </Grid>
             <Grid item xs={1}>
-              <CreateIcon
-                sx={{
-                  paddingTop: "25px",
-                }}
+              <StyledCreateIcon
                 color='primary'
                 onClick={(event: any) => handleEditItem(index)}
-              ></CreateIcon>
+              ></StyledCreateIcon>
             </Grid>
             <Grid item xs={1}>
               <DeleteIcon
