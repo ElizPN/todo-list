@@ -31,6 +31,10 @@ const StyledCreateIcon = styled(CreateIcon)(() => ({
   paddingTop: "25px",
 }));
 
+const StyledDeleteIcon = styled(DeleteIcon)(() => ({
+  paddingTop: "25px",
+}));
+
 interface TodoItemProps {
   item: Item;
   index: number;
@@ -100,13 +104,10 @@ export const TodoItem = ({
               ></StyledCreateIcon>
             </Grid>
             <Grid item xs={1}>
-              <DeleteIcon
-                sx={{
-                  paddingTop: "25px",
-                }}
+              <StyledDeleteIcon
                 color='primary'
                 onClick={(event: any) => handleRemoveItem(index)}
-              ></DeleteIcon>
+              ></StyledDeleteIcon>
             </Grid>
           </>
         )}
