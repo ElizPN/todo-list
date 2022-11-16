@@ -10,6 +10,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
 import { Item } from "./CkeckboxList";
 import { styled } from "@mui/material/styles";
+import { theme } from "./Theme";
 
 const StyledTextField = styled(TextField)(() => ({
   width: "250px",
@@ -19,20 +20,23 @@ const StyledTextField = styled(TextField)(() => ({
 const StyledSaveIcon = styled(SaveIcon)(() => ({
   paddingTop: "25px",
   paddingLeft: "20px",
+  color: theme.palette.secondary.main,
+}));
+
+const StyledCreateIcon = styled(CreateIcon)(() => ({
+  paddingTop: "25px",
+  color: theme.palette.primary.main,
+}));
+
+const StyledDeleteIcon = styled(DeleteIcon)(({ theme }) => ({
+  paddingTop: "25px",
+  color: theme.palette.primary.main,
 }));
 
 const StyledListItemText = styled(ListItemText)(() => ({
   overflow: "auto",
   paddingTop: "4px",
   paddingLeft: "10px",
-}));
-
-const StyledCreateIcon = styled(CreateIcon)(() => ({
-  paddingTop: "25px",
-}));
-
-const StyledDeleteIcon = styled(DeleteIcon)(() => ({
-  paddingTop: "25px",
 }));
 
 interface TodoItemProps {
@@ -87,7 +91,6 @@ export const TodoItem = ({
             </Grid>
             <Grid item xs={2}>
               <StyledSaveIcon
-                color='secondary'
                 onClick={(event: any) => handlerSaveItem(index)}
               ></StyledSaveIcon>
             </Grid>
@@ -99,13 +102,11 @@ export const TodoItem = ({
             </Grid>
             <Grid item xs={1}>
               <StyledCreateIcon
-                color='primary'
                 onClick={(event: any) => handleEditItem(index)}
               ></StyledCreateIcon>
             </Grid>
             <Grid item xs={1}>
               <StyledDeleteIcon
-                color='primary'
                 onClick={(event: any) => handleRemoveItem(index)}
               ></StyledDeleteIcon>
             </Grid>
