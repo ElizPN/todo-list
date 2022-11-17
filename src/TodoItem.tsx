@@ -11,6 +11,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { Item } from "./CkeckboxList";
 import { styled } from "@mui/material/styles";
 import { theme } from "./Theme";
+import { useState } from "react";
 
 const StyledTextField = styled(TextField)(() => ({
   width: "250px",
@@ -61,61 +62,67 @@ export const TodoItem = ({
   handlerSaveItem,
   handleEditItem,
   handleRemoveItem,
-}: TodoItemProps) => (
-  <Grid container spacing={2}>
-    <Zoom
-      in={!item.removing}
-      timeout={800}
-      onExited={() => handleDelteItemFromState(index)}
-    >
-      <ListItemButton role={undefined} dense>
-        <Grid item xs={1}>
-          <Checkbox
-            edge='start'
-            checked={item.checked}
-            tabIndex={-1}
-            disableRipple
-            onClick={(event: any) => handleToggleCheked(index)}
-          />
-        </Grid>
-        {item.editItem ? (
-          <>
-            <Grid item xs={9}>
-              <StyledTextField
-                id='standard-basic'
-                label=''
-                variant='standard'
-                value={inputEditItem}
-                onChange={(event) => setInputEditItem(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <StyledSaveIcon
-                onClick={(event: any) => handlerSaveItem(index)}
-              ></StyledSaveIcon>
-            </Grid>
-          </>
-        ) : (
-          <>
-            <Grid item xs={9}>
-              <StyledListItemText
-                primary={item.text}
-                sx={{ textDecoration: item.checked ? "line-through" : "none" }}
-              />
-            </Grid>
-            <Grid item xs={1}>
-              <StyledCreateIcon
-                onClick={(event: any) => handleEditItem(index)}
-              ></StyledCreateIcon>
-            </Grid>
-            <Grid item xs={1}>
-              <StyledDeleteIcon
-                onClick={(event: any) => handleRemoveItem(index)}
-              ></StyledDeleteIcon>
-            </Grid>
-          </>
-        )}
-      </ListItemButton>
-    </Zoom>
-  </Grid>
-);
+}: TodoItemProps) => {
+  const [isEdit, setIsEdit] = useState<Boolean>(false);
+
+  return (
+    <Grid container spacing={2}>
+      <Zoom
+        in={!item.removing}
+        timeout={800}
+        onExited={() => handleDelteItemFromState(index)}
+      >
+        <ListItemButton role={undefined} dense>
+          <Grid item xs={1}>
+            <Checkbox
+              edge='start'
+              checked={item.checked}
+              tabIndex={-1}
+              disableRipple
+              onClick={(event: any) => handleToggleCheked(index)}
+            />
+          </Grid>
+          {item.editItem ? (
+            <>
+              <Grid item xs={9}>
+                <StyledTextField
+                  id='standard-basic'
+                  label=''
+                  variant='standard'
+                  value={inputEditItem}
+                  onChange={(event) => setInputEditItem(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <StyledSaveIcon
+                  onClick={(event: any) => handlerSaveItem(index)}
+                ></StyledSaveIcon>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={9}>
+                <StyledListItemText
+                  primary={item.text}
+                  sx={{
+                    textDecoration: item.checked ? "line-through" : "none",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={1}>
+                <StyledCreateIcon
+                  onClick={(event: any) => handleEditItem(index)}
+                ></StyledCreateIcon>
+              </Grid>
+              <Grid item xs={1}>
+                <StyledDeleteIcon
+                  onClick={(event: any) => handleRemoveItem(index)}
+                ></StyledDeleteIcon>
+              </Grid>
+            </>
+          )}
+        </ListItemButton>
+      </Zoom>
+    </Grid>
+  );
+};
