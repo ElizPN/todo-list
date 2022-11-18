@@ -61,7 +61,7 @@ const StyledGridContainer = styled(Grid)(() => ({
 
 export default function CheckboxList() {
   const [toDolist, setTodolist] = useState<Item[]>(
-    JSON.parse(localStorage.getItem("toDolist") || "{}")
+    JSON.parse(localStorage.getItem("toDolist") || "[]")
   );
 
   // AddTodoItem
