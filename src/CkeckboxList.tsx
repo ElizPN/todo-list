@@ -68,6 +68,7 @@ export default function CheckboxList() {
   const [inputValue, setInputValue] = useState<string>("");
   // TodoItem
   const [inputEditItem, setInputEditItem] = useState<string>("");
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useEffect(() => {
     localStorage.setItem("toDolist", JSON.stringify(toDolist));
@@ -113,11 +114,9 @@ export default function CheckboxList() {
   const handlerSaveItem = (itemIndex: number) => {
     let newToDoList = [...toDolist];
     newToDoList[itemIndex].text = inputEditItem;
-    newToDoList[itemIndex].editItem = !newToDoList[itemIndex].editItem;
-
     setTodolist(newToDoList);
 
-    // setInputEditItem("");
+    setInputEditItem("");
   };
 
   return (
@@ -136,6 +135,8 @@ export default function CheckboxList() {
 
         {toDolist.map((item, index) => (
           <TodoItem
+            editingIndex={editingIndex}
+            setEditingIndex={setEditingIndex}
             inputEditItem={inputEditItem}
             setInputEditItem={setInputEditItem}
             handleRemoveItem={handleRemoveItem}

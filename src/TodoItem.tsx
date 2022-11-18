@@ -41,18 +41,22 @@ const StyledDeleteIcon = styled(DeleteIcon)(({ theme }) => ({
 }));
 
 interface TodoItemProps {
+  editingIndex: number | null;
+  setEditingIndex: (index: number | null) => void;
   item: Item;
   index: number;
   inputEditItem: string;
   handleDelteItemFromState: (itemIndex: number) => void;
   handleToggleCheked: (itemIndex: number) => void;
-  setInputEditItem: (arg0: string) => void;
+  setInputEditItem: (text: string) => void;
   handlerSaveItem: (itemIndex: number) => void;
   handleEditItem: (itemIndex: number) => void;
   handleRemoveItem: (itemIndex: number) => void;
 }
 
 export const TodoItem = ({
+  editingIndex,
+  setEditingIndex,
   item,
   index,
   inputEditItem,
@@ -63,7 +67,15 @@ export const TodoItem = ({
   handleEditItem,
   handleRemoveItem,
 }: TodoItemProps) => {
-  const [isEdit, setIsEdit] = useState<Boolean>(false);
+  const handlerEditingIndex = (currentIndex: number) => {
+    setEditingIndex(currentIndex);
+    setInputEditItem(item.text);
+  };
+
+  const handlerSaveItemText = () => {
+    handlerSaveItem(index);
+    setEditingIndex(null);
+  };
 
   return (
     <Grid container spacing={2}>
@@ -82,7 +94,7 @@ export const TodoItem = ({
               onClick={(event: any) => handleToggleCheked(index)}
             />
           </Grid>
-          {item.editItem ? (
+          {editingIndex === index ? (
             <>
               <Grid item xs={9}>
                 <StyledTextField
@@ -94,9 +106,7 @@ export const TodoItem = ({
                 />
               </Grid>
               <Grid item xs={2}>
-                <StyledSaveIcon
-                  onClick={(event: any) => handlerSaveItem(index)}
-                ></StyledSaveIcon>
+                <StyledSaveIcon onClick={handlerSaveItemText}></StyledSaveIcon>
               </Grid>
             </>
           ) : (
@@ -111,7 +121,7 @@ export const TodoItem = ({
               </Grid>
               <Grid item xs={1}>
                 <StyledCreateIcon
-                  onClick={(event: any) => handleEditItem(index)}
+                  onClick={(event: any) => handlerEditingIndex(index)}
                 ></StyledCreateIcon>
               </Grid>
               <Grid item xs={1}>
