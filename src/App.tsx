@@ -1,6 +1,5 @@
 // import "./App.css";
 import { ThemeProvider } from "@mui/system";
-import { useState } from "react";
 import CheckboxList from "./CkeckboxList";
 import { theme } from "./Theme";
 
