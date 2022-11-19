@@ -10,7 +10,6 @@ export interface Item {
   text: string;
   checked: boolean;
   removing: boolean;
-  editItem: boolean;
 }
 // TodoItem
 const removeItem = (arr: Item[], num: number) => {
@@ -33,15 +32,6 @@ const toggleRemoveProperty = (arr: Item[], itemIndex: number) => {
   const copyArr = [...arr];
   copyArr[itemIndex].removing = !copyArr[itemIndex].removing;
 
-  return copyArr;
-};
-//  TodoItem
-const toggleEditProperty = (arr: Item[], itemIndex: number) => {
-  const copyArr = [...arr];
-
-  for (let i = 0; i < copyArr.length; i++) {
-    copyArr[i].editItem = i === itemIndex ? !copyArr[i].editItem : false;
-  }
   return copyArr;
 };
 
@@ -81,7 +71,6 @@ export default function CheckboxList() {
       text: inputValue,
       checked: false,
       removing: false,
-      editItem: false,
     });
     setTodolist(newToDoList);
     setInputValue("");
@@ -104,12 +93,7 @@ export default function CheckboxList() {
     const arrWithToggleChecked = toggleCheckedProperty(toDolist, itemIndex);
     setTodolist(arrWithToggleChecked);
   };
-  // TodoItem
-  const handleEditItem = (itemIndex: number) => {
-    const arrWithToggledEditProp = toggleEditProperty(toDolist, itemIndex);
-    setTodolist(arrWithToggledEditProp);
-    setInputEditItem(toDolist[itemIndex].text);
-  };
+
   // TodoItem
   const handlerSaveItem = (itemIndex: number) => {
     let newToDoList = [...toDolist];
@@ -142,7 +126,6 @@ export default function CheckboxList() {
             handleRemoveItem={handleRemoveItem}
             handleDelteItemFromState={handleDelteItemFromState}
             handleToggleCheked={handleToggleCheked}
-            handleEditItem={handleEditItem}
             handlerSaveItem={handlerSaveItem}
             item={item}
             index={index}

@@ -50,7 +50,6 @@ interface TodoItemProps {
   handleToggleCheked: (itemIndex: number) => void;
   setInputEditItem: (text: string) => void;
   handlerSaveItem: (itemIndex: number) => void;
-  handleEditItem: (itemIndex: number) => void;
   handleRemoveItem: (itemIndex: number) => void;
 }
 
@@ -64,7 +63,6 @@ export const TodoItem = ({
   handleToggleCheked,
   setInputEditItem,
   handlerSaveItem,
-  handleEditItem,
   handleRemoveItem,
 }: TodoItemProps) => {
   const handlerEditingIndex = (currentIndex: number) => {
