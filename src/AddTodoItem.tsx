@@ -21,25 +21,35 @@ export const SyledAddButton = styled(Button)(() => ({
 }));
 
 interface AddTodoItemProps {
+  isDirty: boolean;
+  handeOnChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   inputValue: string;
-  setInputValue: (value: string) => void;
   addItemToList: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 export const AddTodoItem = ({
+  isDirty,
+  handeOnChange,
   inputValue,
-  setInputValue,
   addItemToList,
 }: AddTodoItemProps) => (
   <SyledFieldArea>
     <SyledTextField
+      error={inputValue === "" && isDirty}
       size='small'
       label='Let`s go!'
       focused
       value={inputValue}
-      onChange={(event) => setInputValue(event.target.value)}
+      onChange={handeOnChange}
     />
-    <SyledAddButton variant='outlined' onClick={addItemToList}>
+
+    <SyledAddButton
+      disabled={inputValue === ""}
+      variant='outlined'
+      onClick={addItemToList}
+    >
       Add
     </SyledAddButton>
   </SyledFieldArea>

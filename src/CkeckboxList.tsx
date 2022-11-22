@@ -59,6 +59,7 @@ export default function CheckboxList() {
   // TodoItem
   const [inputEditItem, setInputEditItem] = useState<string>("");
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [isDirty, setIsDirty] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage.setItem("toDolist", JSON.stringify(toDolist));
@@ -74,6 +75,14 @@ export default function CheckboxList() {
     });
     setTodolist(newToDoList);
     setInputValue("");
+    setIsDirty(false);
+  };
+
+  const handeOnChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInputValue(event.target.value);
+    setIsDirty(true);
   };
 
   // TodoItem
@@ -112,8 +121,9 @@ export default function CheckboxList() {
     >
       <StyledPaper variant='outlined' square>
         <AddTodoItem
+          isDirty={isDirty}
+          handeOnChange={handeOnChange}
           inputValue={inputValue}
-          setInputValue={setInputValue}
           addItemToList={addItemToList}
         ></AddTodoItem>
 
