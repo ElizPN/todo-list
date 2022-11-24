@@ -49,7 +49,6 @@ interface TodoItemProps {
   handleToggleCheked: (itemIndex: number) => void;
   setInputEditItem: (text: string) => void;
   handlerSaveItem: (itemIndex: number) => void;
-  handleRemoveItem: (itemIndex: number) => void;
 }
 
 export const TodoItem = ({
@@ -62,7 +61,6 @@ export const TodoItem = ({
   handleToggleCheked,
   setInputEditItem,
   handlerSaveItem,
-  handleRemoveItem,
 }: TodoItemProps) => {
   const handlerEditingIndex = (currentIndex: number) => {
     setEditingIndex(currentIndex);
@@ -76,11 +74,7 @@ export const TodoItem = ({
 
   return (
     <Grid container spacing={2}>
-      <Zoom
-        in={!item.removing}
-        timeout={800}
-        onExited={() => handleDelteItemFromState(index)}
-      >
+      <Zoom in timeout={800} onExited={() => handleDelteItemFromState(index)}>
         <ListItemButton role={undefined} dense>
           <Grid item xs={1}>
             <Checkbox
@@ -123,7 +117,7 @@ export const TodoItem = ({
               </Grid>
               <Grid item xs={1}>
                 <StyledDeleteIcon
-                  onClick={(event: any) => handleRemoveItem(index)}
+                  onClick={(event: any) => handleDelteItemFromState(index)}
                 ></StyledDeleteIcon>
               </Grid>
             </>

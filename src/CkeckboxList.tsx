@@ -9,9 +9,8 @@ import { TodoItem } from "./TodoItem";
 export interface Item {
   text: string;
   checked: boolean;
-  removing: boolean;
 }
-// TodoItem
+
 const removeItem = (arr: Item[], num: number) => {
   const arrClone = [...arr];
   const partBeforeItem = arrClone.slice(0, num);
@@ -20,17 +19,10 @@ const removeItem = (arr: Item[], num: number) => {
 
   return arrConcat;
 };
-// TodoItem
+
 const toggleCheckedProperty = (arr: Item[], itemIndex: number) => {
   const copyArr = [...arr];
   copyArr[itemIndex].checked = !copyArr[itemIndex].checked;
-
-  return copyArr;
-};
-//  TodoItem
-const toggleRemoveProperty = (arr: Item[], itemIndex: number) => {
-  const copyArr = [...arr];
-  copyArr[itemIndex].removing = !copyArr[itemIndex].removing;
 
   return copyArr;
 };
@@ -54,9 +46,8 @@ export default function CheckboxList() {
     JSON.parse(localStorage.getItem("toDolist") || "[]")
   );
 
-  // AddTodoItem
   const [inputValue, setInputValue] = useState<string>("");
-  // TodoItem
+
   const [inputEditItem, setInputEditItem] = useState<string>("");
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDirty, setIsDirty] = useState<boolean>(false);
@@ -65,13 +56,11 @@ export default function CheckboxList() {
     localStorage.setItem("toDolist", JSON.stringify(toDolist));
   }, [toDolist]);
 
-  // AddTodoItem
   const addItemToList = (event: React.MouseEvent<HTMLElement>) => {
     let newToDoList = [...toDolist];
     newToDoList.push({
       text: inputValue,
       checked: false,
-      removing: false,
     });
     setTodolist(newToDoList);
     setInputValue("");
@@ -85,25 +74,16 @@ export default function CheckboxList() {
     setIsDirty(true);
   };
 
-  // TodoItem
-  const handleRemoveItem = (itemIndex: number) => {
-    const arrWithItemRemoving = toggleRemoveProperty(toDolist, itemIndex);
-    setTodolist(arrWithItemRemoving);
-  };
-
-  // TodoItem
   const handleDelteItemFromState = (itemIndex: number) => {
     const arrWithoutItem = removeItem(toDolist, itemIndex);
     setTodolist(arrWithoutItem);
   };
 
-  // TodoItem
   const handleToggleCheked = (itemIndex: number) => {
     const arrWithToggleChecked = toggleCheckedProperty(toDolist, itemIndex);
     setTodolist(arrWithToggleChecked);
   };
 
-  // TodoItem
   const handlerSaveItem = (itemIndex: number) => {
     let newToDoList = [...toDolist];
     newToDoList[itemIndex].text = inputEditItem;
@@ -133,7 +113,6 @@ export default function CheckboxList() {
             setEditingIndex={setEditingIndex}
             inputEditItem={inputEditItem}
             setInputEditItem={setInputEditItem}
-            handleRemoveItem={handleRemoveItem}
             handleDelteItemFromState={handleDelteItemFromState}
             handleToggleCheked={handleToggleCheked}
             handlerSaveItem={handlerSaveItem}
