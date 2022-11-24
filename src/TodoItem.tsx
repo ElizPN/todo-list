@@ -74,7 +74,7 @@ export const TodoItem = ({
 
   return (
     <Grid container spacing={2}>
-      <Zoom in timeout={800} onExited={() => handleDelteItemFromState(index)}>
+      <Zoom in timeout={800}>
         <ListItemButton role={undefined} dense>
           <Grid item xs={1}>
             <Checkbox
