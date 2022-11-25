@@ -6,6 +6,7 @@ import { theme } from "./Theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <h1>Todolister</h1>
       <CheckboxList />
     </ThemeProvider>
   );
