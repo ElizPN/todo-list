@@ -37,6 +37,7 @@ export const AddTodoItem = ({
 }: AddTodoItemProps) => (
   <SyledFieldArea>
     <SyledTextField
+      data-testid='add-item-textfield'
       error={inputValue === "" && isDirty}
       size='small'
       label='Let`s go!'
@@ -46,6 +47,7 @@ export const AddTodoItem = ({
     />
 
     <SyledAddButton
+      data-testid='add-button'
       disabled={inputValue === ""}
       variant='outlined'
       onClick={addItemToList}
