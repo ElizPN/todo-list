@@ -99,6 +99,7 @@ export default function CheckboxList() {
       alignItems='center'
       justifyContent='center'
     >
+      <h1>Todolister</h1>
       <StyledPaper variant='outlined' square>
         <AddTodoItem
           isDirty={isDirty}
