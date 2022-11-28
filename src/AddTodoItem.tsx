@@ -40,7 +40,7 @@ export const AddTodoItem = ({
       data-testid='add-item-textfield'
       error={inputValue === "" && isDirty}
       size='small'
-      label='Let`s go!'
+      label='Todo!'
       focused
       value={inputValue}
       onChange={handeOnChange}
