@@ -117,6 +117,7 @@ export const TodoItem = ({
               </Grid>
               <Grid item xs={1}>
                 <StyledDeleteIcon
+                  data-testid='delete-button'
                   onClick={(event: any) => handleDelteItemFromState(index)}
                 ></StyledDeleteIcon>
               </Grid>
