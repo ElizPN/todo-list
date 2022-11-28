@@ -33,4 +33,37 @@ describe("TodoItem", () => {
 
     expect(handleDelteItemFromState).toBeCalled();
   });
+
+  test("should call handlerEditingIndex after click on EditeIcon", () => {
+    const setEditingIndex = jest.fn();
+    const setInputEditItem = jest.fn();
+    const handleDelteItemFromState = jest.fn();
+    const handleToggleCheked = jest.fn();
+    const handlerSaveItem = jest.fn();
+
+    const item = {
+      text: "some text",
+      checked: false,
+    };
+    render(
+      <TodoItem
+        editingIndex={1}
+        setEditingIndex={setEditingIndex}
+        inputEditItem={"some text"}
+        setInputEditItem={setInputEditItem}
+        handleDelteItemFromState={handleDelteItemFromState}
+        handleToggleCheked={handleToggleCheked}
+        handlerSaveItem={handlerSaveItem}
+        item={item}
+        index={2}
+        key={1}
+      />
+    );
+
+    const editButton = screen.getByTestId("edit-button");
+    fireEvent.click(editButton);
+
+    expect(setEditingIndex).toBeCalledWith(2);
+    expect(setInputEditItem).toBeCalledWith("some text");
+  });
 });

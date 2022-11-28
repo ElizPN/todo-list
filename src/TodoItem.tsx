@@ -112,6 +112,7 @@ export const TodoItem = ({
               </Grid>
               <Grid item xs={1}>
                 <StyledCreateIcon
+                  data-testid='edit-button'
                   onClick={(event: any) => handlerEditingIndex(index)}
                 ></StyledCreateIcon>
               </Grid>
