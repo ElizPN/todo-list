@@ -62,7 +62,7 @@ describe("TodoItem", () => {
 
     const editButton = screen.getByTestId("edit-button");
     fireEvent.click(editButton);
-//  handlerEditingIndex calls two functions
+    //handlerEditingIndex calls two functions
     expect(setEditingIndex).toBeCalledWith(2);
     expect(setInputEditItem).toBeCalledWith("some text");
   });
@@ -98,6 +98,37 @@ describe("TodoItem", () => {
      expect(handlerSaveItem).toBeCalled()
      
    });
+
+     test("should call handleToggleCheked after click on Checkbox", () => {
+       const setEditingIndex = jest.fn();
+       const setInputEditItem = jest.fn();
+       const handleDelteItemFromState = jest.fn();
+       const handleToggleCheked = jest.fn();
+       const handlerSaveItem = jest.fn();
+
+       const item = {
+         text: "some text",
+         checked: false,
+       };
+       render(
+         <TodoItem
+           editingIndex={1}
+           setEditingIndex={setEditingIndex}
+           inputEditItem={"some text"}
+           setInputEditItem={setInputEditItem}
+           handleDelteItemFromState={handleDelteItemFromState}
+           handleToggleCheked={handleToggleCheked}
+           handlerSaveItem={handlerSaveItem}
+           item={item}
+           index={2}
+           key={1}
+         />
+       );
+
+       const ckeckBox = screen.getByTestId("checkbox");
+       fireEvent.click(ckeckBox);
+       expect(handleToggleCheked).toBeCalled();
+     });
 
   
 });

@@ -78,6 +78,7 @@ export const TodoItem = ({
         <ListItemButton role={undefined} dense>
           <Grid item xs={1}>
             <Checkbox
+              data-testid='checkbox'
               edge='start'
               checked={item.checked}
               tabIndex={-1}
