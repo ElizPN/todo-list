@@ -97,7 +97,10 @@ export const TodoItem = ({
                 />
               </Grid>
               <Grid item xs={2}>
-                <StyledSaveIcon onClick={handlerSaveItemText}></StyledSaveIcon>
+                <StyledSaveIcon
+                  data-testid='save-button'
+                  onClick={handlerSaveItemText}
+                ></StyledSaveIcon>
               </Grid>
             </>
           ) : (
