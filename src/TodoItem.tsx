@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
-import { Item } from "./CkeckboxList";
+import { Item } from "./CheckboxList";
 import { styled } from "@mui/material/styles";
 import { theme } from "./Theme";
 

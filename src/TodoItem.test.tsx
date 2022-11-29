@@ -34,7 +34,7 @@ describe("TodoItem", () => {
     expect(handleDelteItemFromState).toBeCalled();
   });
 
-  test("should call handlerEditingIndex after click on EditeIcon", () => {
+  test("should call handlerEditingIndex after click on EditIcon", () => {
     const setEditingIndex = jest.fn();
     const setInputEditItem = jest.fn();
     const handleDelteItemFromState = jest.fn();
