@@ -62,7 +62,7 @@ describe("TodoItem", () => {
 
     const editButton = screen.getByTestId("edit-button");
     fireEvent.click(editButton);
-
+//  handlerEditingIndex calls two functions
     expect(setEditingIndex).toBeCalledWith(2);
     expect(setInputEditItem).toBeCalledWith("some text");
   });
