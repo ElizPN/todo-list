@@ -1,7 +1,7 @@
 // import "./App.css";
 
 import { ThemeProvider } from "@mui/system";
-import CheckboxList from "./CkeckboxList";
+import CheckboxList from "./CheckboxList";
 import { theme } from "./Theme";
 
 function App() {
