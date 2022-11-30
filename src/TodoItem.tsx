@@ -73,7 +73,7 @@ export const TodoItem = ({
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid data-testid='todo-item'  container spacing={2}>
       <Zoom in timeout={800}>
         <ListItemButton role={undefined} dense>
           <Grid item xs={1}>
