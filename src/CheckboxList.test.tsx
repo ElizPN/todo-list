@@ -25,4 +25,16 @@ describe("Integration: CheckboxList and internal components", () => {
 
     expect(todoItem).not.toBeInTheDocument();
   });
+
+  test("TextField is cleared after click on AddButton", () => {
+    render(<CheckboxList />);
+
+    const textField = screen.getByLabelText(/todo/i);
+    fireEvent.change(textField, { target: { value: "liza" } });
+
+    const addButton = screen.getByTestId("add-button");
+    fireEvent.click(addButton);
+
+    expect(textField).toHaveValue("");
+  });
 });
