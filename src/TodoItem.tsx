@@ -73,7 +73,7 @@ export const TodoItem = ({
   };
 
   return (
-    <Grid data-testid='todo-item'  container spacing={2}>
+    <Grid data-testid='todo-item' container spacing={2}>
       <Zoom in timeout={800}>
         <ListItemButton role={undefined} dense>
           <Grid item xs={1}>
@@ -90,8 +90,8 @@ export const TodoItem = ({
             <>
               <Grid item xs={9}>
                 <StyledTextField
+                  data-testid='input-item'
                   id='standard-basic'
-                  label=''
                   variant='standard'
                   value={inputEditItem}
                   onChange={(event) => setInputEditItem(event.target.value)}
