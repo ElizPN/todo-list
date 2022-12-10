@@ -1,6 +1,7 @@
 # `Todolister`
 
-Description...
+With TodoLister you can write down the most important tasks for the day, week or month. You can always edit or delete your task. 
+Don't worry to close dotolister, when you next time open the App, all tasks will be restored. 
 
 Deployed to GitHub Pages: https://elizpn.github.io/todo-list/
 
@@ -15,7 +16,7 @@ Deployed to GitHub Pages: https://elizpn.github.io/todo-list/
 
 
 ## Implementation specifics:
-Data is stored in local storage
+Data is stored in local storage.
 
 
 
