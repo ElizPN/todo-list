@@ -20,11 +20,6 @@ Deployed to GitHub Pages: https://elizpn.github.io/todo-list/
 Data is stored in local storage.
 
 
-
-## Planned Improvements: 
-
-
-
 ## Development
 
 Install all dependencies, in repo's root:
