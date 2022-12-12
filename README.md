@@ -13,15 +13,11 @@ Deployed to GitHub Pages: https://elizpn.github.io/todo-list/
 
 
 ## Architecture: 
+<img src="./public/architecture_todo.png" title="Architecture Diagram">
 
 
 ## Implementation specifics:
 Data is stored in local storage.
-
-
-
-## Planned Improvements: 
-
 
 
 ## Development
