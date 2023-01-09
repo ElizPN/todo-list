@@ -4,18 +4,18 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
-export const SyledFieldArea = styled(Box)(() => ({
+export const StyledFieldArea = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
   paddingBottom: "20px",
 }));
 
-export const SyledTextField = styled(TextField)(({ theme }) => ({
+export const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "90%",
   color: theme.palette.primary.main,
 }));
 
-export const SyledAddButton = styled(Button)(() => ({
+export const StyledAddButton = styled(Button)(() => ({
   marginLeft: "20px",
   width: "10%",
 }));
@@ -35,8 +35,8 @@ export const AddTodoItem = ({
   inputValue,
   addItemToList,
 }: AddTodoItemProps) => (
-  <SyledFieldArea>
-    <SyledTextField
+  <StyledFieldArea>
+    <StyledTextField
       data-testid='add-item-textfield'
       error={inputValue === "" && isDirty}
       size='small'
@@ -46,13 +46,13 @@ export const AddTodoItem = ({
       onChange={handeOnChange}
     />
 
-    <SyledAddButton
+    <StyledAddButton
       data-testid='add-button'
       disabled={inputValue === ""}
       variant='outlined'
       onClick={addItemToList}
     >
       Add
-    </SyledAddButton>
-  </SyledFieldArea>
+    </StyledAddButton>
+  </StyledFieldArea>
 );
