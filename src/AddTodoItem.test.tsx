@@ -77,25 +77,6 @@ describe("AddTodoItem", () => {
     expect(addButton).toBeDisabled();
   });
 
-  test("AddButton should be disabled when inputValue is empty ", () => {
-    // Arrange
-    const handeOnChange = jest.fn();
-    const addItemToList = jest.fn();
-    //Act
-    render(
-      <AddTodoItem
-        isDirty={false}
-        handeOnChange={handeOnChange}
-        inputValue={""}
-        addItemToList={addItemToList}
-      />
-    );
-    const addButton = screen.getByTestId("add-button");
-
-    //Assert
-    expect(addButton).toBeDisabled();
-  });
-
   test("AddButton should be anabled when inputValue is not empty ", () => {
     // Arrange
     const handeOnChange = jest.fn();
