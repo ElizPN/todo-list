@@ -20,6 +20,10 @@ Deployed to GitHub Pages: https://elizpn.github.io/todo-list/
 ## Implementation specifics:
 Data is stored in local storage.
 
+## Demo:
+ <img src="./public/todo-list.gif" title="Gif Demo">
+
+
 ## Screenshots:
 
 ### Desktop (macOS, Chrome):
