@@ -4,12 +4,12 @@ describe("TodoLister", () => {
 
     cy.contains("Todolister");
     cy.get("[data-testid=add-item-textfield]").type(
-      "Add Cypress to thr project"
+      "Add Cypress to the project"
     );
     cy.get("[data-testid=add-button]").click()
 
     cy.get("[data-testid=ckeck-box-list]").contains(
-      "Add Cypress to thr project"
+      "Add Cypress to the project"
     );
   });
 });
